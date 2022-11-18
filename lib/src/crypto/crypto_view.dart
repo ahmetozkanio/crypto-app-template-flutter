@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+
 import './crypto_view_model.dart';
+import 'widgets/buttons.dart';
+import 'widgets/crypto_buy_receive.dart';
+import 'widgets/crypto_widgets.dart';
+import 'widgets/exchanged_widget.dart';
+import 'widgets/message_badge_widget.dart';
+import 'widgets/profile_widget.dart';
 
 class CryptoView extends CryptoViewModel {
   @override
@@ -7,314 +14,163 @@ class CryptoView extends CryptoViewModel {
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48.0),
-      child: ListView(
+      child: cryptoBody(context),
+    ));
+  }
+
+  ListView cryptoBody(BuildContext context) {
+    return ListView(
+      children: [
+        const SizedBox(
+          height: 48.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            leftColumn(context),
+            middleColumn(context),
+            rightColumn(context)
+          ],
+        ),
+      ],
+    );
+  }
+
+  SizedBox leftColumn(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 48.0,
-          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.25,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/crypto_image.png",
-                          width: 32.0,
-                        ),
-                        Text(
-                          "BANK",
-                          style: TextStyle(fontSize: 24.0),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 32.0,
-                    ),
-                    Column(
-                      children: [
-                        cryptoCardWidget(true, "assets/crypto_image.png",
-                            "Bitcoin", "BTC", "37851.30", "3.5", "3.5", true),
-                        cryptoCardWidget(false, "assets/crypto_image.png",
-                            "Ethereum", "ETC", "37851.30", "3.5", "3.5", true),
-                        cryptoCardWidget(false, "assets/crypto_image.png",
-                            "BNB", "BNB", "37851.30", "3.5", "3.5", false),
-                      ],
-                    ),
-                  ],
-                ),
+              Image.asset(
+                "assets/crypto_image.png",
+                width: 32.0,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/crypto_image.png",
-                                width: 24.0,
-                              ),
-                              Text(
-                                "Overview",
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 24.0,
-                        ),
-                        InkWell(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/crypto_image.png",
-                                width: 24.0,
-                              ),
-                              Text(
-                                "Assets",
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 24.0,
-                        ),
-                        InkWell(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/crypto_image.png",
-                                width: 24.0,
-                              ),
-                              Text(
-                                "Market",
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              const Text(
+                "BANK",
+                style: TextStyle(fontSize: 24.0),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.25,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 30.0,
-                          height: 30.0,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0.0,
-                                bottom: 0.0,
-                                child: Icon(Icons.sms),
-                              ),
-                              Positioned(
-                                  right: 0.0,
-                                  top: 0.0,
-                                  child: Container(
-                                    width: 18,
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '5',
-                                        style: TextStyle(
-                                          fontSize: 11.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 24.0,
-                        ),
-                        ClipOval(
-                          child: SizedBox.fromSize(
-                            size: Size.fromRadius(28.0),
-                            child: Image.asset('assets/profile_photo.jpg',
-                                fit: BoxFit.cover),
-                          ),
-                        )
-                      ],
-                    ),
-                    Container(
-                        width: double.infinity,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text('Exchange'),
-                                SizedBox(
-                                  height: 16.0,
-                                ),
-                                Text(
-                                  'Exchange',
-                                  style: TextStyle(
-                                      fontSize: 11.0, color: Colors.grey),
-                                ),
-                                SizedBox(
-                                  height: 8.0,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.circular(
-                                      16.0,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 16.0,
-                                          vertical: 4.0,
-                                        ),
-                                        width: 190,
-                                        child: Expanded(
-                                          child: TextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                              hintText: "3.0",
-                                              isDense: true,
-                                              border: InputBorder.none,
-                                            ),
-                                            style: TextStyle(fontSize: 12.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: DropdownButton(
-                                          items: [],
-                                          onChanged: null,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
-              )
+            ],
+          ),
+          const SizedBox(
+            height: 82,
+          ),
+          Column(
+            children: [
+              cryptoCardWidget(true, "assets/crypto_image.png", "Bitcoin",
+                  "BTC", "37851.30", "3.5", "3.5", true),
+              cryptoCardWidget(false, "assets/crypto_image.png", "Ethereum",
+                  "ETC", "37851.30", "3.5", "3.5", true),
+              cryptoCardWidget(false, "assets/crypto_image.png", "BNB", "BNB",
+                  "37851.30", "3.5", "3.5", false),
+              const SizedBox(
+                height: 64.0,
+              ),
+              supportButtonWidget(),
             ],
           ),
         ],
       ),
-    ));
+    );
   }
 
-  Container cryptoCardWidget(
-    bool selected,
-    String image,
-    String cryptoName,
-    String crptoShortName,
-    String price,
-    String total,
-    String amountOfChange,
-    bool increaseDecrase,
-  ) {
-    return Container(
-      height: 124.0,
-      width: 164,
-      child: Card(
-        color: selected ? Color.fromARGB(255, 0, 144, 255) : null,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0, left: 16.0),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        image,
-                        width: 32.0,
-                      ),
-                      Text(cryptoName),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: null,
-                  icon: Icon(
-                    Icons.more_horiz,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 12.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                '\$$price',
+  SizedBox middleColumn(BuildContext context) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: Column(children: [
+          Row(
+            children: [
+              tabBarWidget(context, Icons.data_exploration, 'Overview', true),
+              const SizedBox(
+                width: 24.0,
               ),
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: [
+              tabBarWidget(context, Icons.perm_device_information_sharp,
+                  'Overview', false),
+              const SizedBox(
+                width: 24.0,
+              ),
+              tabBarWidget(
+                  context, Icons.directions_railway, 'Overview', false),
+            ],
+          ),
+          const SizedBox(
+            height: 96,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
                   Text(
-                    "$total $crptoShortName ",
-                    style: TextStyle(
-                      color: Color.fromARGB(120, 95, 100, 102),
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    '3.5 BTC',
+                    style: TextStyle(fontSize: 32),
                   ),
                   Text(
-                    increaseDecrase
-                        ? "+ $amountOfChange%"
-                        : "- $amountOfChange%",
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    "\$12845.80",
+                    style: TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
-            )
-          ],
-        ),
+              Row(
+                children: [
+                  iconButtonWidget(true, Icons.access_time_filled_sharp),
+                  iconButtonWidget(false, Icons.local_fire_department_sharp),
+                  iconButtonWidget(false, Icons.data_object),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 128.0,
+          ),
+          const Center(
+            child: Text(
+              'CHART',
+            ),
+          ),
+          const SizedBox(
+            height: 128.0,
+          ),
+          cryptoBuyWidget(
+              true, 'Cardano', 'ADA', 'Buy', '2.2.2022 9:45 PM', '\$5.12'),
+          cryptoBuyWidget(false, 'Ethereum', 'ETH', 'Receive',
+              '2.2.2022 9:45 PM', '\$5.12'),
+          cryptoBuyWidget(
+              false, 'Binance', 'BNB', 'Buy', '2.2.2022 9:45 PM', '\$5.12'),
+        ]));
+  }
+
+  SizedBox rightColumn(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.25,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              messageBageWidget(),
+              const SizedBox(
+                width: 24.0,
+              ),
+              profileWidget()
+            ],
+          ),
+          const SizedBox(
+            height: 64,
+          ),
+          exchangeWidget(context),
+          const SizedBox(
+            height: 32.0,
+          ),
+          minCryptoWidget(),
+          minCryptoWidget(),
+          minCryptoWidget(),
+        ],
       ),
     );
   }

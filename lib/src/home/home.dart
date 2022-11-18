@@ -13,11 +13,11 @@ class Home extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Color.fromARGB(255, 24, 28, 30),
-        cardColor: Color.fromARGB(255, 34, 38, 43),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 24, 28, 30),
+        cardColor: const Color.fromARGB(255, 34, 38, 43),
       ),
       themeMode: ThemeMode.dark,
-      home: Crypto(),
+      home: const Crypto(),
     );
   }
 }
